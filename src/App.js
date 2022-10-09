@@ -9,12 +9,12 @@ function App() {
 <section className="todoapp">
       <header className="header">
         <h1>todos</h1>
-        <input className="new-todo" placeholder="What needs to be done?" autofocus/>
+        <input className="new-todo" placeholder="What needs to be done?" autoFocus/>
       </header>
       <section className="main">
         <ul className="todo-list">
           <li className="completed">
-            <div clasNames="view">
+            <div className="view">
               <input className="toggle" type="checkbox"/>
               <label>
                 <span className="description">Completed task</span>
@@ -52,7 +52,7 @@ function App() {
           <span className="todo-count">1 items left</span>
           <ul className="filters">
             <li>
-              <button class="selected">All</button>
+              <button className="selected">All</button>
             </li>
             <li>
               <button>Active</button>
