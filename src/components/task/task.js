@@ -1,8 +1,42 @@
-const Task = () => {
+const Task = ({ compl, edit, regular }) => {
+  if (edit) {
     return (
-        <li className="completed">
+      <li className="editing">
         <div className="view">
-          <input className="toggle" type="checkbox"/>
+          <input className="toggle" type="checkbox" />
+          <label>
+            <span className="description">Editing task</span>
+            <span className="created">created 5 minutes ago</span>
+          </label>
+          <button className="icon icon-edit"></button>
+          <button className="icon icon-destroy"></button>
+        </div>
+        <input
+          type="text"
+          className="edit"
+          /* value="Editing task"  */ defaultValue="Editing task"
+        />
+      </li>
+    );
+  } else if (regular) {
+    return (
+      <li>
+        <div className="view">
+          <input className="toggle" type="checkbox" />
+          <label>
+            <span className="description">Active task</span>
+            <span className="created">created 5 minutes ago</span>
+          </label>
+          <button className="icon icon-edit"></button>
+          <button className="icon icon-destroy"></button>
+        </div>
+      </li>
+    );
+  } else {
+    return (
+      <li className="completed">
+        <div className="view">
+          <input className="toggle" type="checkbox" />
           <label>
             <span className="description">Completed task</span>
             <span className="created">created 17 seconds ago</span>
@@ -11,7 +45,8 @@ const Task = () => {
           <button className="icon icon-destroy"></button>
         </div>
       </li>
-    )
-}
+    );
+  }
+};
 
-export default Task
+export default Task;
