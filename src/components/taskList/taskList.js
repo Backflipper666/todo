@@ -1,13 +1,15 @@
 import Task from '../task/task';
 
-const TaskList = () => {
-  return (
-    <ul className="todo-list">
-      <Task regular label="Active task" />
-      <Task edit label="Editing task" />
-      <Task regular label="Active task" />
-    </ul>
-  );
+const TaskList = ({ todos }) => {
+  const elements = todos.map((item) => {
+    const { id, ...itemProps } = item;
+    return (
+      <li>
+        <Task regular {...itemProps} />
+      </li>
+    );
+  });
+  return <ul className="todo-list">{elements}</ul>;
 };
 
 export default TaskList;
