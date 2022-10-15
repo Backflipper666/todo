@@ -2,15 +2,24 @@ import React from 'react';
 import './task.css';
 
 export default class Task extends React.Component {
+  state = {
+    done: false,
+  };
   toggle = (evt) => {
     //parentDiv is only used to get GrandParent element
 
     let parentDiv = evt.target.parentElement;
     let grandParent = parentDiv.parentElement;
-    console.log('prarent: ', parentDiv);
-    console.log('grand', grandParent);
+
     grandParent.classList.toggle('completed');
   };
+
+  onLabelClick(evt) {
+    let parentDiv = evt.target.parentElement;
+    let grandParent = parentDiv.parentElement;
+
+    grandParent.classList.toggle('completed');
+  }
 
   edit = (evt) => {
     //parentDiv is only used to get GrandParent element
@@ -29,8 +38,21 @@ export default class Task extends React.Component {
     grandParent.append(input);
   };
 
-  render() {
+  render(evt) {
+    const { done } = this.state;
     const { edit, regular, compl, label } = this.props;
+
+    if (done) {
+      let parentDiv = evt.target.parentElement;
+      let grandParent = parentDiv.parentElement;
+
+      this.setState((state) => {
+        return {
+          done: !state.done,
+        };
+      });
+    }
+
     return (
       <div className="view">
         <input className="toggle" type="checkbox" onClick={this.toggle} />

@@ -4,7 +4,7 @@ const TaskList = ({ todos }) => {
   const elements = todos.map((item) => {
     const { id, ...itemProps } = item;
     return (
-      <li>
+      <li key={item.id}>
         <Task regular {...itemProps} />
       </li>
     );
