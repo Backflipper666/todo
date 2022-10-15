@@ -61,7 +61,10 @@ export default class Task extends React.Component {
           <span className="created">created 5 minutes ago</span>
         </label>
         <button className="icon icon-edit" /* onClick={this.edit} */></button>
-        <button className="icon icon-destroy"></button>
+        <button
+          className="icon icon-destroy"
+          onClick={this.props.onDeleted}
+        ></button>
       </div>
     );
   }

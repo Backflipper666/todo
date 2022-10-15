@@ -14,6 +14,17 @@ export default class App extends React.Component {
     ],
   };
 
+  deleteItem = (id) => {
+    this.setState(({ todoData }) => {
+      const idx = todoData.findIndex((el) => el.id === id);
+      const newArray = [...todoData.slice(0, idx), ...todoData.slice(idx + 1)];
+
+      return {
+        todoData: newArray,
+      };
+    });
+  };
+
   render() {
     return (
       <section className="todoapp">
@@ -22,7 +33,7 @@ export default class App extends React.Component {
           <NewTaskForm />
         </header>
         <section className="main">
-          <TaskList todos={this.todoData} />
+          <TaskList todos={this.state.todoData} onDeleted={this.deleteItem} />
           <Footer />
         </section>
       </section>
