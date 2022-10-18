@@ -76,6 +76,7 @@ export default class App extends React.Component {
 
   render() {
     const doneCount = this.state.todoData.filter((el) => el.done).length;
+    const total = this.state.todoData.length;
     const todoCount = this.state.todoData.length - doneCount;
     const { todoData } = this.state;
     /*     console.log('doneCount = : ', doneCount);
@@ -93,7 +94,7 @@ export default class App extends React.Component {
             onToggleImportant={this.onToggleImportant}
             onToggleDone={this.onToggleDone}
           />
-          <Footer />
+          <Footer finished={doneCount} all={total} />
         </section>
       </section>
     );
