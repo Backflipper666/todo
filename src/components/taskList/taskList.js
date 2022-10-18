@@ -1,11 +1,17 @@
 import Task from '../task/task';
 
-const TaskList = ({ todos, onDeleted }) => {
+const TaskList = ({ todos, onDeleted, onToggleImportant, onToggleDone }) => {
   const elements = todos.map((item) => {
     const { id, ...itemProps } = item;
     return (
       <li key={item.id}>
-        <Task regular {...itemProps} onDeleted={() => onDeleted(id)} />
+        <Task
+          regular
+          {...itemProps}
+          onDeleted={() => onDeleted(id)}
+          onToggleImportant={() => onToggleImportant(id)}
+          onToggleDone={() => onToggleDone(id)}
+        />
       </li>
     );
   });

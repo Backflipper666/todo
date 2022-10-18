@@ -40,7 +40,8 @@ export default class Task extends React.Component {
 
   render(evt) {
     const { done } = this.state;
-    const { edit, regular, compl, label } = this.props;
+    const { edit, regular, compl, label, onToggleImportant, onToggleDone } =
+      this.props;
 
     if (done) {
       let parentDiv = evt.target.parentElement;
