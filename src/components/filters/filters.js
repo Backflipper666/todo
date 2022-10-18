@@ -1,17 +1,59 @@
-const Filters = () => {
-    return (
-        <ul className="filters">
-        <li>
-          <button className="selected">All</button>
-        </li>
-        <li>
-          <button>Active</button>
-        </li>
-        <li>
-          <button>Completed</button>
-        </li>
-      </ul>
-    )
-}
+import React from 'react';
 
-export default Filters
+export default class Filter extends React.Component {
+  state = {};
+
+  showOnlyCompleted = () => {
+    const completed = document.querySelectorAll('.completed');
+    // console.log('todos: ', todos);
+    const todoList = document.querySelector('.todo-list');
+    for (const child of todoList.childNodes) {
+      if (!child.classList.contains('completed')) {
+        child.classList.add('hidden-completed');
+      } else {
+        child.classList.remove('hidden-completed');
+      }
+    }
+  };
+
+  showOnlyActive = () => {
+    const completed = document.querySelector('.completed');
+    const todoList = document.querySelector('.todo-list');
+    for (const child of todoList.childNodes) {
+      if (!child.classList.contains('completed')) {
+        child.classList.remove('hidden-completed');
+      } else {
+        child.classList.add('hidden-completed');
+      }
+    }
+  };
+
+  showAll = () => {
+    const todoList = document.querySelector('.todo-list');
+    for (const child of todoList.childNodes) {
+      child.classList.remove('hidden-completed');
+    }
+  };
+
+  render() {
+    const { todos } = this.props;
+
+    return (
+      <div>
+        <ul className="filters">
+          <li>
+            <button className="selected" onClick={this.showAll}>
+              All
+            </button>
+          </li>
+          <li>
+            <button onClick={this.showOnlyActive}>Active</button>
+          </li>
+          <li>
+            <button onClick={this.showOnlyCompleted}>Completed</button>
+          </li>
+        </ul>
+      </div>
+    );
+  }
+}

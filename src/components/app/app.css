@@ -418,3 +418,22 @@ html .clear-completed:active {
 		bottom: 10px;
 	}
 }
+.hidden{
+	display: none;
+	visibility: hidden;
+}
+
+.hidden-completed{
+	display: none;
+	visibility: hidden;
+}
+
+.hidden-active{
+	display: none;
+	visibility: hidden;
+}
+
+.hidden-permanently{
+	display: none;
+	visibility: hidden;
+}

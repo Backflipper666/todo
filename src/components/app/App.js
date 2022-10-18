@@ -94,7 +94,7 @@ export default class App extends React.Component {
             onToggleImportant={this.onToggleImportant}
             onToggleDone={this.onToggleDone}
           />
-          <Footer finished={doneCount} all={total} />
+          <Footer finished={doneCount} all={total} todos={todoData} />
         </section>
       </section>
     );
