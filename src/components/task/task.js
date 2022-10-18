@@ -38,12 +38,20 @@ export default class Task extends React.Component {
     grandParent.append(input);
   };
 
-  render(evt) {
-    const { done } = this.state;
-    const { edit, regular, compl, label, onToggleImportant, onToggleDone } =
-      this.props;
+  render() {
+    const {
+      edit,
+      regular,
+      compl,
+      label,
+      onToggleImportant,
+      onToggleDone,
+      done,
+      important,
+    } = this.props;
 
-    if (done) {
+    /*     if (done) {
+      console.log(evt);
       let parentDiv = evt.target.parentElement;
       let grandParent = parentDiv.parentElement;
 
@@ -52,11 +60,11 @@ export default class Task extends React.Component {
           done: !state.done,
         };
       });
-    }
+    } */
 
     return (
       <div className="view">
-        <input className="toggle" type="checkbox" onClick={this.toggle} />
+        <input className="toggle" type="checkbox" onClick={onToggleDone} />
         <label>
           <span className="description">{label}</span>
           <span className="created">created 5 minutes ago</span>

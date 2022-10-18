@@ -10,7 +10,13 @@ const TaskList = ({ todos, onDeleted, onToggleImportant, onToggleDone }) => {
           {...itemProps}
           onDeleted={() => onDeleted(id)}
           onToggleImportant={() => onToggleImportant(id)}
-          onToggleDone={() => onToggleDone(id)}
+          onToggleDone={(evt) => {
+            let parentDiv = evt.target.parentElement;
+            let grandParent = parentDiv.parentElement;
+
+            grandParent.classList.toggle('completed');
+            return onToggleDone(id);
+          }}
         />
       </li>
     );
