@@ -6,12 +6,36 @@ import TaskList from '../taskList/taskList';
 import React from 'react';
 
 export default class App extends React.Component {
+  maxId = 100;
+
   state = {
     todoData: [
       { label: 'Active task', id: 1 },
       { label: 'Editing task', id: 2 },
       { label: 'Active task', id: 3 },
     ],
+  };
+
+  createTodoItem(label) {
+    return {
+      label,
+      important: false,
+      done: false,
+      id: this.maxId++,
+    };
+  }
+
+  addItem = (text) => {
+    //generate id
+    const newItem = this.createTodoItem(text);
+
+    this.setState(({ todoData }) => {
+      const newArr = [...todoData, newItem];
+
+      return {
+        todoData: newArr,
+      };
+    });
   };
 
   deleteItem = (id) => {
@@ -30,7 +54,7 @@ export default class App extends React.Component {
       <section className="todoapp">
         <header className="header">
           <h1>todos</h1>
-          <NewTaskForm />
+          <NewTaskForm onItemAdded={this.addItem} />
         </header>
         <section className="main">
           <TaskList todos={this.state.todoData} onDeleted={this.deleteItem} />
