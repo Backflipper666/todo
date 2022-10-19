@@ -3,7 +3,8 @@ import React from 'react';
 export default class Filter extends React.Component {
   state = {};
 
-  showOnlyCompleted = () => {
+  showOnlyCompleted = (evt) => {
+    this.evt = evt;
     const completed = document.querySelectorAll('.completed');
     // console.log('todos: ', todos);
     const todoList = document.querySelector('.todo-list');
@@ -14,9 +15,15 @@ export default class Filter extends React.Component {
         child.classList.remove('hidden-completed');
       }
     }
+
+    const btns = document.querySelectorAll('.filters button');
+    for (const button of btns) {
+      button.classList.remove('selected');
+    }
+    evt.target.classList.add('selected');
   };
 
-  showOnlyActive = () => {
+  showOnlyActive = (evt) => {
     const completed = document.querySelector('.completed');
     const todoList = document.querySelector('.todo-list');
     for (const child of todoList.childNodes) {
@@ -26,13 +33,25 @@ export default class Filter extends React.Component {
         child.classList.add('hidden-completed');
       }
     }
+
+    const btns = document.querySelectorAll('.filters button');
+    for (const button of btns) {
+      button.classList.remove('selected');
+    }
+    evt.target.classList.add('selected');
   };
 
-  showAll = () => {
+  showAll = (evt) => {
     const todoList = document.querySelector('.todo-list');
     for (const child of todoList.childNodes) {
       child.classList.remove('hidden-completed');
     }
+
+    const btns = document.querySelectorAll('.filters button');
+    for (const button of btns) {
+      button.classList.remove('selected');
+    }
+    evt.target.classList.add('selected');
   };
 
   render() {
