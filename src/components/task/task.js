@@ -39,12 +39,19 @@ export default class Task extends React.Component {
     const form = document.createElement('form');
     const input = document.createElement('input');
 
+    // form.classList.add('hidden');
+    form.classList.add('edit-form');
+
     //!!!the following line works
     input.value = this.state.label;
     let inputValue;
 
     input.addEventListener('input', (evt) => {
       inputValue = evt.target.value;
+
+      /*       this.setState({
+        label: evt.target.value,
+      }); */
     });
 
     form.addEventListener('submit', (evt) => {
@@ -56,8 +63,19 @@ export default class Task extends React.Component {
       });
     });
 
+    form.addEventListener('focusout', (evt) => {
+      evt.preventDefault();
+      parentDiv.classList.remove('hidden');
+      form.classList.add('hidden');
+      this.setState({
+        label: inputValue,
+      });
+    });
+
     form.appendChild(input);
     grandParent.appendChild(form);
+
+    // grandParent.classList.toggle('completed');
   };
 
   render() {
