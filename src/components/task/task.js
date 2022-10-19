@@ -40,6 +40,7 @@ export default class Task extends React.Component {
     const input = document.createElement('input');
 
     // form.classList.add('hidden');
+    input.classList.add('edit-input');
     form.classList.add('edit-form');
 
     //!!!the following line works
@@ -49,9 +50,9 @@ export default class Task extends React.Component {
     input.addEventListener('input', (evt) => {
       inputValue = evt.target.value;
 
-      /*       this.setState({
+      this.setState({
         label: evt.target.value,
-      }); */
+      });
     });
 
     form.addEventListener('submit', (evt) => {

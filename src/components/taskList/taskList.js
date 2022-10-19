@@ -29,6 +29,7 @@ export default class TaskList extends React.Component {
     console.log('on hit edit');
   }
   render() {
+    const { editor } = this.state;
     const { todos, onDeleted, onToggleImportant, onToggleDone } = this.props;
     const elements = todos.map((item) => {
       const { id, ...itemProps } = item;
@@ -57,6 +58,10 @@ export default class TaskList extends React.Component {
         </li>
       );
     });
+
+    if (editor) {
+      return <></>;
+    }
     return <ul className="todo-list">{elements}</ul>;
   }
 }
