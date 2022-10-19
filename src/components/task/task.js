@@ -79,6 +79,10 @@ export default class Task extends React.Component {
     // grandParent.classList.toggle('completed');
   };
 
+  secondCount = (num) => {
+    return num++;
+  };
+
   render() {
     const { onToggleDone } = this.props;
     const { label } = this.state;
@@ -89,7 +93,7 @@ export default class Task extends React.Component {
         <label>
           <span className="description">{label}</span>
 
-          <span className="created">created 5 minutes ago</span>
+          <span className="created">created 17 seconds ago</span>
           {/*           <form className="hidden form-edit">
             <input type="text" onChange={this.onLabelChange} />
           </form> */}
