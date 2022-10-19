@@ -1,27 +1,62 @@
+import React from 'react';
 import Task from '../task/task';
 
-const TaskList = ({ todos, onDeleted, onToggleImportant, onToggleDone }) => {
-  const elements = todos.map((item) => {
-    const { id, ...itemProps } = item;
-    return (
-      <li key={item.id}>
-        <Task
-          regular
-          {...itemProps}
-          onDeleted={() => onDeleted(id)}
-          onToggleImportant={() => onToggleImportant(id)}
-          onToggleDone={(evt) => {
-            let parentDiv = evt.target.parentElement;
-            let grandParent = parentDiv.parentElement;
+export default class TaskList extends React.Component {
+  state = {
+    label: '',
+    editor: false,
+  };
 
-            grandParent.classList.toggle('completed');
-            return onToggleDone(id);
-          }}
-        />
-      </li>
-    );
-  });
-  return <ul className="todo-list">{elements}</ul>;
-};
+  onLabelChange = (e) => {
+    this.setState({
+      label: e.target.value,
+    });
+  };
 
-export default TaskList;
+  onHitEdit(evt) {
+    //attach to parent class hidden
+    //create form, append form to grandparent
+    //sync the form's and the li's text contents
+    //onSubmit, remove form and remove class hidden from parent
+    const theForm = document.querySelector('.the-form');
+    let parentDiv = evt.target.parentElement;
+    let grandParent = parentDiv.parentElement;
+
+    theForm.classList.remove('hidden');
+    parentDiv.classList.add('hidden');
+
+    // grandParent.classList.toggle('editing');
+    console.log('on hit edit');
+  }
+  render() {
+    const { todos, onDeleted, onToggleImportant, onToggleDone } = this.props;
+    const elements = todos.map((item) => {
+      const { id, ...itemProps } = item;
+      return (
+        <li key={item.id}>
+          <form className="hidden the-form">
+            <input
+              type="text"
+              value={item.label}
+              onChange={this.onLabelChange}
+            />
+          </form>
+          <Task
+            regular
+            {...itemProps}
+            onDeleted={() => onDeleted(id)}
+            onToggleImportant={() => onToggleImportant(id)}
+            onToggleDone={(evt) => {
+              let parentDiv = evt.target.parentElement;
+              let grandParent = parentDiv.parentElement;
+
+              grandParent.classList.toggle('completed');
+              return onToggleDone(id);
+            }}
+          />
+        </li>
+      );
+    });
+    return <ul className="todo-list">{elements}</ul>;
+  }
+}
