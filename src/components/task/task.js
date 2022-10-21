@@ -1,10 +1,13 @@
 import React from 'react';
 import './task.css';
+// import { addDays, format, formatDistance } from 'date-fns';
+import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 
 export default class Task extends React.Component {
   state = {
     done: false,
     label: this.props.label,
+    date: formatDistanceToNow(new Date(), { includeSeconds: true }),
   };
 
   onLabelChange = (e) => {
@@ -79,13 +82,28 @@ export default class Task extends React.Component {
     // grandParent.classList.toggle('completed');
   };
 
-  secondCount = (num) => {
-    return num++;
-  };
+  componentDidMount() {
+    this.timerID = setInterval(() => this.tick(), 5000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timerID);
+  }
+
+  tick() {
+    // this.setState({ date: formatDistanceToNow(new Date(), { includeSeconds: true } });
+    this.setState(({ date }) => {
+      return {
+        date: formatDistanceToNow(this.props.date1, {
+          includeSeconds: true,
+        }),
+      };
+    });
+  }
 
   render() {
-    const { onToggleDone } = this.props;
-    const { label } = this.state;
+    const { onToggleDone, date1 } = this.props;
+    const { label, date } = this.state;
 
     return (
       <div className="view">
@@ -93,7 +111,9 @@ export default class Task extends React.Component {
         <label>
           <span className="description">{label}</span>
 
-          <span className="created">created 17 seconds ago</span>
+          <span className="created">{
+            /* created 17 seconds ago */ `created ${date} ago`
+          }</span>
           {/*           <form className="hidden form-edit">
             <input type="text" onChange={this.onLabelChange} />
           </form> */}

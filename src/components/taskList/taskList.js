@@ -43,6 +43,7 @@ export default class TaskList extends React.Component {
             />
           </form>
           <Task
+            date1={new Date()}
             regular
             {...itemProps}
             onDeleted={() => onDeleted(id)}
