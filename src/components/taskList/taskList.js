@@ -13,21 +13,6 @@ export default class TaskList extends React.Component {
     });
   };
 
-  onHitEdit(evt) {
-    //attach to parent class hidden
-    //create form, append form to grandparent
-    //sync the form's and the li's text contents
-    //onSubmit, remove form and remove class hidden from parent
-    const theForm = document.querySelector('.the-form');
-    let parentDiv = evt.target.parentElement;
-    let grandParent = parentDiv.parentElement;
-
-    theForm.classList.remove('hidden');
-    parentDiv.classList.add('hidden');
-
-    // grandParent.classList.toggle('editing');
-    console.log('on hit edit');
-  }
   render() {
     const { editor } = this.state;
     const { todos, onDeleted, onToggleImportant, onToggleDone } = this.props;
