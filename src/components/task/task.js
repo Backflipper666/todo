@@ -8,6 +8,9 @@ export default class Task extends React.Component {
     done: false,
     label: this.props.label,
     date: formatDistanceToNow(new Date(), { includeSeconds: true }),
+    oldTime: new Date(),
+    newTime: '',
+    dateState: new Date(),
   };
 
   onLabelChange = (e) => {
@@ -82,28 +85,9 @@ export default class Task extends React.Component {
     // grandParent.classList.toggle('completed');
   };
 
-  componentDidMount() {
-    this.timerID = setInterval(() => this.tick(), 5000);
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.timerID);
-  }
-
-  tick() {
-    // this.setState({ date: formatDistanceToNow(new Date(), { includeSeconds: true } });
-    this.setState(({ date }) => {
-      return {
-        date: formatDistanceToNow(this.props.date1, {
-          includeSeconds: true,
-        }),
-      };
-    });
-  }
-
   render() {
     const { onToggleDone, date1 } = this.props;
-    const { label, date } = this.state;
+    const { label, date, oldTime, newTime } = this.state;
 
     return (
       <div className="view">
@@ -111,9 +95,12 @@ export default class Task extends React.Component {
         <label>
           <span className="description">{label}</span>
 
-          <span className="created">{
-            /* created 17 seconds ago */ `created ${date} ago`
-          }</span>
+          <span className="created">
+            {/* created 17 seconds ago */}
+            {`created ${formatDistanceToNow(this.state.dateState, {
+              includeSeconds: true,
+            })}`}
+          </span>
           {/*           <form className="hidden form-edit">
             <input type="text" onChange={this.onLabelChange} />
           </form> */}

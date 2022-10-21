@@ -14,7 +14,6 @@ export default class TaskList extends React.Component {
   };
 
   render() {
-    const { editor } = this.state;
     const { todos, onDeleted, onToggleImportant, onToggleDone } = this.props;
     const elements = todos.map((item) => {
       const { id, ...itemProps } = item;
@@ -28,7 +27,6 @@ export default class TaskList extends React.Component {
             />
           </form>
           <Task
-            date1={new Date()}
             regular
             {...itemProps}
             onDeleted={() => onDeleted(id)}
@@ -45,9 +43,6 @@ export default class TaskList extends React.Component {
       );
     });
 
-    if (editor) {
-      return <></>;
-    }
     return <ul className="todo-list">{elements}</ul>;
   }
 }
