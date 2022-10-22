@@ -1,5 +1,6 @@
 import React from 'react';
 import Task from '../task/task';
+import PropTypes from 'prop-types';
 
 export default class TaskList extends React.Component {
   state = {
@@ -46,3 +47,18 @@ export default class TaskList extends React.Component {
     return <ul className="todo-list">{elements}</ul>;
   }
 }
+
+TaskList.defaultProps = {
+  todos: [
+    { label: 'Active task', id: 1 },
+    { label: 'Editing task', id: 2 },
+    { label: 'Active task', id: 3 },
+  ],
+};
+
+TaskList.propTypes = {
+  todos: PropTypes.array,
+  onDeleted: PropTypes.func,
+  onToggleImportant: PropTypes.func,
+  onToggleDone: PropTypes.func,
+};

@@ -1,7 +1,7 @@
 import React from 'react';
 import './task.css';
-// import { addDays, format, formatDistance } from 'date-fns';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
+import PropTypes from 'prop-types';
 
 export default class Task extends React.Component {
   state = {
@@ -86,8 +86,8 @@ export default class Task extends React.Component {
   };
 
   render() {
-    const { onToggleDone, date1 } = this.props;
-    const { label, date, oldTime, newTime } = this.state;
+    const { onToggleDone } = this.props;
+    const { label } = this.state;
 
     return (
       <div className="view">
@@ -96,14 +96,10 @@ export default class Task extends React.Component {
           <span className="description">{label}</span>
 
           <span className="created">
-            {/* created 17 seconds ago */}
             {`created ${formatDistanceToNow(this.state.dateState, {
               includeSeconds: true,
             })}`}
           </span>
-          {/*           <form className="hidden form-edit">
-            <input type="text" onChange={this.onLabelChange} />
-          </form> */}
         </label>
         <button className="icon icon-edit" onClick={this.edit}></button>
         <button
@@ -114,3 +110,11 @@ export default class Task extends React.Component {
     );
   }
 }
+
+Task.defaultProps = {
+  onToggleDone: () => {},
+};
+
+Task.propTypes = {
+  onToggleDone: PropTypes.func,
+};

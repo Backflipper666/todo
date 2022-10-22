@@ -1,5 +1,6 @@
 import React from 'react';
 import Filters from '../filters/filters';
+import PropTypes from 'prop-types';
 
 export default class Footer extends React.Component {
   render() {
@@ -26,3 +27,15 @@ export default class Footer extends React.Component {
     );
   }
 }
+
+Footer.defaultProps = {
+  todos: [
+    { label: 'Active task', id: 1 },
+    { label: 'Editing task', id: 2 },
+    { label: 'Active task', id: 3 },
+  ],
+};
+
+Footer.propTypes = {
+  todos: PropTypes.array,
+};

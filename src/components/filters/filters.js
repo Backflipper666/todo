@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 export default class Filter extends React.Component {
@@ -76,3 +77,15 @@ export default class Filter extends React.Component {
     );
   }
 }
+
+Filter.defaultProps = {
+  todos: [
+    { label: 'Active task', id: 1 },
+    { label: 'Editing task', id: 2 },
+    { label: 'Active task', id: 3 },
+  ],
+};
+
+Filter.propTypes = {
+  todos: PropTypes.array,
+};
