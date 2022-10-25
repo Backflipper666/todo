@@ -1,59 +1,45 @@
-import React from 'react';
-import './task.css';
-import formatDistanceToNow from 'date-fns/formatDistanceToNow';
-import PropTypes from 'prop-types';
+import React from "react";
+import "./task.css";
+import formatDistanceToNow from "date-fns/formatDistanceToNow";
+import PropTypes from "prop-types";
 
 export default class Task extends React.Component {
   state = {
-    done: false,
     label: this.props.label,
-    date: formatDistanceToNow(new Date(), { includeSeconds: true }),
-    oldTime: new Date(),
-    newTime: '',
     dateState: new Date(),
   };
 
-  onLabelChange = (e) => {
+  /*   onLabelChange = (e) => {
     this.setState({
       label: e.target.value,
     });
   };
+ */
 
-  toggle = (evt) => {
-    //parentDiv is only used to get GrandParent element
+  /*   onLabelClick(evt) {
+    const parentDiv = evt.target.parentElement;
+    const grandParent = parentDiv.parentElement;
 
-    let parentDiv = evt.target.parentElement;
-    let grandParent = parentDiv.parentElement;
-
-    grandParent.classList.toggle('completed');
-  };
-
-  onLabelClick(evt) {
-    let parentDiv = evt.target.parentElement;
-    let grandParent = parentDiv.parentElement;
-
-    grandParent.classList.toggle('completed');
-  }
-
-  onSubmit = () => {};
+    grandParent.classList.toggle("completed");
+  } */
 
   edit = (evt) => {
-    let parentDiv = evt.target.parentElement;
-    let grandParent = parentDiv.parentElement;
-    parentDiv.classList.add('hidden');
+    const parentDiv = evt.target.parentElement;
+    const grandParent = parentDiv.parentElement;
+    parentDiv.classList.add("hidden");
 
-    const form = document.createElement('form');
-    const input = document.createElement('input');
+    const form = document.createElement("form");
+    const input = document.createElement("input");
 
     // form.classList.add('hidden');
-    input.classList.add('edit-input');
-    form.classList.add('edit-form');
+    input.classList.add("edit-input");
+    form.classList.add("edit-form");
 
-    //!!!the following line works
+    //! !!the following line works
     input.value = this.state.label;
     let inputValue;
 
-    input.addEventListener('input', (evt) => {
+    input.addEventListener("input", (evt) => {
       inputValue = evt.target.value;
 
       this.setState({
@@ -61,19 +47,19 @@ export default class Task extends React.Component {
       });
     });
 
-    form.addEventListener('submit', (evt) => {
+    form.addEventListener("submit", (evt) => {
       evt.preventDefault();
-      parentDiv.classList.remove('hidden');
-      form.classList.add('hidden');
+      parentDiv.classList.remove("hidden");
+      form.classList.add("hidden");
       this.setState({
         label: inputValue,
       });
     });
 
-    form.addEventListener('focusout', (evt) => {
+    form.addEventListener("focusout", (evt) => {
       evt.preventDefault();
-      parentDiv.classList.remove('hidden');
-      form.classList.add('hidden');
+      parentDiv.classList.remove("hidden");
+      form.classList.add("hidden");
       this.setState({
         label: inputValue,
       });
@@ -84,6 +70,15 @@ export default class Task extends React.Component {
 
     // grandParent.classList.toggle('completed');
   };
+  /* 
+  toggle = (evt) => {
+    // parentDiv is only used to get GrandParent element
+
+    const parentDiv = evt.target.parentElement;
+    const grandParent = parentDiv.parentElement;
+
+    grandParent.classList.toggle("completed");
+  }; */
 
   render() {
     const { onToggleDone } = this.props;
@@ -94,18 +89,18 @@ export default class Task extends React.Component {
         <input className="toggle" type="checkbox" onClick={onToggleDone} />
         <label>
           <span className="description">{label}</span>
-
           <span className="created">
             {`created ${formatDistanceToNow(this.state.dateState, {
               includeSeconds: true,
             })}`}
           </span>
         </label>
-        <button className="icon icon-edit" onClick={this.edit}></button>
+        <button type="button" className="icon icon-edit" onClick={this.edit} />
         <button
+          type="button"
           className="icon icon-destroy"
           onClick={this.props.onDeleted}
-        ></button>
+        />
       </div>
     );
   }
@@ -113,8 +108,12 @@ export default class Task extends React.Component {
 
 Task.defaultProps = {
   onToggleDone: () => {},
+  label: "",
+  onDeleted: () => {},
 };
 
 Task.propTypes = {
   onToggleDone: PropTypes.func,
+  label: PropTypes.any,
+  onDeleted: PropTypes.func,
 };

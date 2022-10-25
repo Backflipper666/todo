@@ -1,6 +1,6 @@
-import React from 'react';
-import Filters from '../filters/filters';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
+import Filters from "../filters/filters";
 
 export default class Footer extends React.Component {
   render() {
@@ -11,12 +11,13 @@ export default class Footer extends React.Component {
         <span className="todo-count">{rest} items left</span>
         <Filters todos={todos} />
         <button
+          type="button"
           className="clear-completed"
           onClick={() => {
-            const todoList = document.querySelector('.todo-list');
+            const todoList = document.querySelector(".todo-list");
             for (const child of todoList.childNodes) {
-              if (child.classList.contains('completed')) {
-                child.classList.add('hidden-permanently');
+              if (child.classList.contains("completed")) {
+                child.classList.add("hidden-permanently");
               }
             }
           }}
@@ -30,12 +31,16 @@ export default class Footer extends React.Component {
 
 Footer.defaultProps = {
   todos: [
-    { label: 'Active task', id: 1 },
-    { label: 'Editing task', id: 2 },
-    { label: 'Active task', id: 3 },
+    { label: "Active task", id: 1 },
+    { label: "Editing task", id: 2 },
+    { label: "Active task", id: 3 },
   ],
+  all: 0,
+  finished: 0,
 };
 
 Footer.propTypes = {
   todos: PropTypes.array,
+  all: PropTypes.number,
+  finished: PropTypes.number,
 };

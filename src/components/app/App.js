@@ -1,32 +1,23 @@
 // import logo from './logo.svg';
-import './app.css';
-import Footer from '../footer/footer';
-import NewTaskForm from '../newTaskForm/newTaskForm';
-import TaskList from '../taskList/taskList';
-import React from 'react';
+import React from "react";
+import "./app.css";
+import Footer from "../footer/footer";
+import NewTaskForm from "../newTaskForm/newTaskForm";
+import TaskList from "../taskList/taskList";
 
 export default class App extends React.Component {
   maxId = 100;
 
   state = {
     todoData: [
-      { label: 'Active task', id: 1 },
-      { label: 'Editing task', id: 2 },
-      { label: 'Active task', id: 3 },
+      { label: "Active task", id: 1 },
+      { label: "Editing task", id: 2 },
+      { label: "Active task", id: 3 },
     ],
   };
 
-  createTodoItem(label) {
-    return {
-      label,
-      important: false,
-      done: false,
-      id: this.maxId++,
-    };
-  }
-
   addItem = (text) => {
-    //generate id
+    // generate id
     const newItem = this.createTodoItem(text);
 
     this.setState(({ todoData }) => {
@@ -49,6 +40,18 @@ export default class App extends React.Component {
     });
   };
 
+  onToggleDone = (id) => {
+    this.setState(({ todoData }) => ({
+      todoData: this.toggleProperty(todoData, id, "done"),
+    }));
+  };
+
+  onToggleImportant = (id) => {
+    this.setState(({ todoData }) => ({
+      todoData: this.toggleProperty(todoData, id, "important"),
+    }));
+  };
+
   toggleProperty(arr, id, propName) {
     const idx = arr.findIndex((el) => el.id === id);
 
@@ -58,26 +61,19 @@ export default class App extends React.Component {
     return [...arr.slice(0, idx), newItem, ...arr.slice(idx + 1)];
   }
 
-  onToggleDone = (id) => {
-    this.setState(({ todoData }) => {
-      return {
-        todoData: this.toggleProperty(todoData, id, 'done'),
-      };
-    });
-  };
-
-  onToggleImportant = (id) => {
-    this.setState(({ todoData }) => {
-      return {
-        todoData: this.toggleProperty(todoData, id, 'important'),
-      };
-    });
-  };
+  createTodoItem(label) {
+    return {
+      label,
+      important: false,
+      done: false,
+      id: this.maxId++,
+    };
+  }
 
   render() {
     const doneCount = this.state.todoData.filter((el) => el.done).length;
     const total = this.state.todoData.length;
-    const todoCount = this.state.todoData.length - doneCount;
+    // const todoCount = this.state.todoData.length - doneCount;
     const { todoData } = this.state;
     /*     console.log('doneCount = : ', doneCount);
     console.log('todoCount: ', todoCount); */

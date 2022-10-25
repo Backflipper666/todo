@@ -1,17 +1,13 @@
-import React from 'react';
-import Task from '../task/task';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
+import Task from "../task/task";
 
 export default class TaskList extends React.Component {
-  state = {
-    label: '',
-    editor: false,
-  };
-
   onLabelChange = (e) => {
-    this.setState({
-      label: e.target.value,
-    });
+    console.log("changed", e.target);
+    /*     this.setState({
+      label: this.e.target.value,
+    }); */
   };
 
   render() {
@@ -33,10 +29,10 @@ export default class TaskList extends React.Component {
             onDeleted={() => onDeleted(id)}
             onToggleImportant={() => onToggleImportant(id)}
             onToggleDone={(evt) => {
-              let parentDiv = evt.target.parentElement;
-              let grandParent = parentDiv.parentElement;
+              const parentDiv = evt.target.parentElement;
+              const grandParent = parentDiv.parentElement;
 
-              grandParent.classList.toggle('completed');
+              grandParent.classList.toggle("completed");
               return onToggleDone(id);
             }}
           />
@@ -50,10 +46,13 @@ export default class TaskList extends React.Component {
 
 TaskList.defaultProps = {
   todos: [
-    { label: 'Active task', id: 1 },
-    { label: 'Editing task', id: 2 },
-    { label: 'Active task', id: 3 },
+    { label: "Active task", id: 1 },
+    { label: "Editing task", id: 2 },
+    { label: "Active task", id: 3 },
   ],
+  onDeleted: () => {},
+  onToggleImportant: () => {},
+  onToggleDone: () => {},
 };
 
 TaskList.propTypes = {
