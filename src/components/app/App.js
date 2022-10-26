@@ -18,11 +18,10 @@ export default class App extends React.Component {
     }
     this.maxId = 100
     this.addItem = this.addItem.bind(this)
-    this.deleteItem = this.deleteItem(this)
-    this.onToggleDone = this.onToggleDone(this)
-    this.onToggleImportant = this.onToggleImportant(this)
-    this.toggleProperty = this.toggleProperty(this)
-    this.createTodoItem = this.createTodoItem(this)
+    this.deleteItem = this.deleteItem.bind(this)
+    this.onToggleDone = this.onToggleDone.bind(this)
+    this.onToggleImportant = this.onToggleImportant.bind(this)
+    this.createTodoItem = this.createTodoItem.bind(this)
   }
 
   addItem(text) {
