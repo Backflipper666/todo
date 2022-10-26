@@ -1,64 +1,73 @@
 // import logo from './logo.svg';
-import React from "react";
-import "./app.css";
-import Footer from "../footer/footer";
-import NewTaskForm from "../newTaskForm/newTaskForm";
-import TaskList from "../taskList/taskList";
+import React from 'react'
+
+import './app.css'
+import Footer from '../footer/footer'
+import NewTaskForm from '../newTaskForm/newTaskForm'
+import TaskList from '../taskList/taskList'
 
 export default class App extends React.Component {
-  maxId = 100;
+  constructor(props) {
+    super(props)
+    this.state = {
+      todoData: [
+        { label: 'Active task', id: 1 },
+        { label: 'Editing task', id: 2 },
+        { label: 'Active task', id: 3 },
+      ],
+    }
+    this.maxId = 100
+    this.addItem = this.addItem.bind(this)
+    this.deleteItem = this.deleteItem(this)
+    this.onToggleDone = this.onToggleDone(this)
+    this.onToggleImportant = this.onToggleImportant(this)
+    this.toggleProperty = this.toggleProperty(this)
+    this.createTodoItem = this.createTodoItem(this)
+  }
 
-  state = {
-    todoData: [
-      { label: "Active task", id: 1 },
-      { label: "Editing task", id: 2 },
-      { label: "Active task", id: 3 },
-    ],
-  };
-
-  addItem = (text) => {
+  addItem(text) {
     // generate id
-    const newItem = this.createTodoItem(text);
+    const newItem = this.createTodoItem(text)
 
     this.setState(({ todoData }) => {
-      const newArr = [...todoData, newItem];
+      const newArr = [...todoData, newItem]
 
       return {
         todoData: newArr,
-      };
-    });
-  };
+      }
+    })
+  }
 
-  deleteItem = (id) => {
+  deleteItem(id) {
     this.setState(({ todoData }) => {
-      const idx = todoData.findIndex((el) => el.id === id);
-      const newArray = [...todoData.slice(0, idx), ...todoData.slice(idx + 1)];
+      const idx = todoData.findIndex((el) => el.id === id)
+      const newArray = [...todoData.slice(0, idx), ...todoData.slice(idx + 1)]
 
       return {
         todoData: newArray,
-      };
-    });
-  };
+      }
+    })
+  }
 
-  onToggleDone = (id) => {
+  onToggleDone(id) {
     this.setState(({ todoData }) => ({
-      todoData: this.toggleProperty(todoData, id, "done"),
-    }));
-  };
+      todoData: this.toggleProperty(todoData, id, 'done'),
+    }))
+  }
 
-  onToggleImportant = (id) => {
+  onToggleImportant(id) {
     this.setState(({ todoData }) => ({
-      todoData: this.toggleProperty(todoData, id, "important"),
-    }));
-  };
+      todoData: this.toggleProperty(todoData, id, 'important'),
+    }))
+  }
 
   toggleProperty(arr, id, propName) {
-    const idx = arr.findIndex((el) => el.id === id);
+    const idx = arr.findIndex((el) => el.id === id)
 
-    const oldItem = arr[idx];
-    const newItem = { ...oldItem, [propName]: !oldItem[propName] };
+    const oldItem = arr[idx]
+    const newItem = { ...oldItem, [propName]: !oldItem[propName] }
 
-    return [...arr.slice(0, idx), newItem, ...arr.slice(idx + 1)];
+    return [...arr.slice(0, idx), newItem, ...arr.slice(idx + 1)]
   }
 
   createTodoItem(label) {
@@ -67,14 +76,14 @@ export default class App extends React.Component {
       important: false,
       done: false,
       id: this.maxId++,
-    };
+    }
   }
 
   render() {
-    const doneCount = this.state.todoData.filter((el) => el.done).length;
-    const total = this.state.todoData.length;
+    const doneCount = this.state.todoData.filter((el) => el.done).length
+    const total = this.state.todoData.length
     // const todoCount = this.state.todoData.length - doneCount;
-    const { todoData } = this.state;
+    const { todoData } = this.state
     /*     console.log('doneCount = : ', doneCount);
     console.log('todoCount: ', todoCount); */
     return (
@@ -93,6 +102,6 @@ export default class App extends React.Component {
           <Footer finished={doneCount} all={total} todos={todoData} />
         </section>
       </section>
-    );
+    )
   }
 }

@@ -1,24 +1,29 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 export default class NewTaskForm extends Component {
-  state = {
-    label: "",
-  };
+  constructor(props) {
+    super(props)
+    this.state = {
+      label: '',
+    }
+    this.onLabelChange = this.onLabelChange.bind(this)
+    this.onSubmit = this.onSubmit.bind(this)
+  }
 
-  onLabelChange = (e) => {
+  onLabelChange(e) {
     this.setState({
       label: e.target.value,
-    });
-  };
+    })
+  }
 
-  onSubmit = (e) => {
-    e.preventDefault();
-    this.props.onItemAdded(this.state.label);
+  onSubmit(e) {
+    e.preventDefault()
+    this.props.onItemAdded(this.state.label)
     this.setState({
-      label: "",
-    });
-  };
+      label: '',
+    })
+  }
 
   render() {
     return (
@@ -32,14 +37,14 @@ export default class NewTaskForm extends Component {
           // autoFocus
         />
       </form>
-    );
+    )
   }
 }
 
 NewTaskForm.defaultProps = {
   onItemAdded: () => {},
-};
+}
 
 NewTaskForm.propTypes = {
   onItemAdded: PropTypes.func,
-};
+}
