@@ -15,10 +15,21 @@ export default class NewTaskForm extends Component {
     this.setState({
       label: e.target.value,
     })
+    const label = this.state.label
+    const trimmed = label.trim()
+    if (trimmed.length === 0) {
+      return
+    }
   }
 
   onSubmit(e) {
     e.preventDefault()
+
+    const label = this.state.label
+    const trimmed = label.trim()
+    if (trimmed.length === 0) {
+      return
+    }
     this.props.onItemAdded(this.state.label)
     this.setState({
       label: '',
@@ -27,7 +38,7 @@ export default class NewTaskForm extends Component {
 
   render() {
     return (
-      <form onSubmit={this.onSubmit}>
+      <form onSubmit={this.onSubmit} className="form-input">
         <input
           className="new-todo"
           placeholder="What needs to be done?"
